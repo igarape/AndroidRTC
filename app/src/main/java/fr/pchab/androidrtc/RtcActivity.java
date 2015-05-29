@@ -35,7 +35,7 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
 
     private WebRtcClient client;
     private String mSocketAddress;
-    private String callerId;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,10 +68,7 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
         final Intent intent = getIntent();
         final String action = intent.getAction();
 
-        if (Intent.ACTION_VIEW.equals(action)) {
-            final List<String> segments = intent.getData().getPathSegments();
-            callerId = segments.get(0);
-        }
+
     }
 
     private void init() {
@@ -111,21 +108,9 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
 
     @Override
     public void onCallReady(String callId) {
-        if (callerId != null) {
-            try {
-                answer(callerId);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            call(callId);
-        }
+        call(callId);
     }
 
-    public void answer(String callerId) throws JSONException {
-        client.sendMessage(callerId, "init", null);
-        startCam();
-    }
 
     public void call(String callId) {
         Intent msg = new Intent(Intent.ACTION_SEND);
