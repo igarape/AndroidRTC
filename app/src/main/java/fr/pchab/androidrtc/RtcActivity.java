@@ -8,14 +8,16 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.webrtc.MediaStream;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoRendererGui;
-import fr.pchab.webrtcclient.WebRtcClient;
-import fr.pchab.webrtcclient.PeerConnectionParameters;
 
 import java.util.List;
+
+import fr.pchab.webrtcclient.PeerConnectionParameters;
+import fr.pchab.webrtcclient.WebRtcClient;
 
 public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     private final static int VIDEO_CALL_SENT = 666;
@@ -26,20 +28,11 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     private static final int LOCAL_Y_CONNECTING = 0;
     private static final int LOCAL_WIDTH_CONNECTING = 100;
     private static final int LOCAL_HEIGHT_CONNECTING = 100;
-    // Local preview screen position after call is connected.
-    private static final int LOCAL_X_CONNECTED = 72;
-    private static final int LOCAL_Y_CONNECTED = 72;
-    private static final int LOCAL_WIDTH_CONNECTED = 25;
-    private static final int LOCAL_HEIGHT_CONNECTED = 25;
-    // Remote video screen position
-    private static final int REMOTE_X = 0;
-    private static final int REMOTE_Y = 0;
-    private static final int REMOTE_WIDTH = 100;
-    private static final int REMOTE_HEIGHT = 100;
+
     private VideoRendererGui.ScalingType scalingType = VideoRendererGui.ScalingType.SCALE_ASPECT_FILL;
     private GLSurfaceView vsv;
     private VideoRenderer.Callbacks localRender;
-//    private VideoRenderer.Callbacks remoteRender;
+
     private WebRtcClient client;
     private String mSocketAddress;
     private String callerId;
@@ -68,10 +61,6 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
             }
         });
 
-        // local and remote render
-//        remoteRender = VideoRendererGui.create(
-//                REMOTE_X, REMOTE_Y,
-//                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType, false);
         localRender = VideoRendererGui.create(
                 LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
                 LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING, scalingType, true);
@@ -176,23 +165,4 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
                 scalingType);
     }
 
-//    @Override
-//    public void onAddRemoteStream(MediaStream remoteStream, int endPoint) {
-//        remoteStream.videoTracks.get(0).addRenderer(new VideoRenderer(remoteRender));
-//        VideoRendererGui.update(remoteRender,
-//                REMOTE_X, REMOTE_Y,
-//                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType);
-//        VideoRendererGui.update(localRender,
-//                LOCAL_X_CONNECTED, LOCAL_Y_CONNECTED,
-//                LOCAL_WIDTH_CONNECTED, LOCAL_HEIGHT_CONNECTED,
-//                scalingType);
-//    }
-
-//    @Override
-//    public void onRemoveRemoteStream(int endPoint) {
-//        VideoRendererGui.update(localRender,
-//                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
-//                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
-//                scalingType);
-//    }
 }
