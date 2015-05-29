@@ -311,7 +311,7 @@ public class WebRtcClient {
         for (Peer peer : peers.values()) {
             peer.pc.dispose();
         }
-        videoSource.dispose();
+        videoSource.stop();
         factory.dispose();
         client.disconnect();
         client.close();
