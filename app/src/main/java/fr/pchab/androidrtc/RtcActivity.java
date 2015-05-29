@@ -39,7 +39,7 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     private VideoRendererGui.ScalingType scalingType = VideoRendererGui.ScalingType.SCALE_ASPECT_FILL;
     private GLSurfaceView vsv;
     private VideoRenderer.Callbacks localRender;
-    private VideoRenderer.Callbacks remoteRender;
+//    private VideoRenderer.Callbacks remoteRender;
     private WebRtcClient client;
     private String mSocketAddress;
     private String callerId;
@@ -69,9 +69,9 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
         });
 
         // local and remote render
-        remoteRender = VideoRendererGui.create(
-                REMOTE_X, REMOTE_Y,
-                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType, false);
+//        remoteRender = VideoRendererGui.create(
+//                REMOTE_X, REMOTE_Y,
+//                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType, false);
         localRender = VideoRendererGui.create(
                 LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
                 LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING, scalingType, true);
@@ -176,23 +176,23 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
                 scalingType);
     }
 
-    @Override
-    public void onAddRemoteStream(MediaStream remoteStream, int endPoint) {
-        remoteStream.videoTracks.get(0).addRenderer(new VideoRenderer(remoteRender));
-        VideoRendererGui.update(remoteRender,
-                REMOTE_X, REMOTE_Y,
-                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType);
-        VideoRendererGui.update(localRender,
-                LOCAL_X_CONNECTED, LOCAL_Y_CONNECTED,
-                LOCAL_WIDTH_CONNECTED, LOCAL_HEIGHT_CONNECTED,
-                scalingType);
-    }
+//    @Override
+//    public void onAddRemoteStream(MediaStream remoteStream, int endPoint) {
+//        remoteStream.videoTracks.get(0).addRenderer(new VideoRenderer(remoteRender));
+//        VideoRendererGui.update(remoteRender,
+//                REMOTE_X, REMOTE_Y,
+//                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType);
+//        VideoRendererGui.update(localRender,
+//                LOCAL_X_CONNECTED, LOCAL_Y_CONNECTED,
+//                LOCAL_WIDTH_CONNECTED, LOCAL_HEIGHT_CONNECTED,
+//                scalingType);
+//    }
 
-    @Override
-    public void onRemoveRemoteStream(int endPoint) {
-        VideoRendererGui.update(localRender,
-                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
-                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
-                scalingType);
-    }
+//    @Override
+//    public void onRemoveRemoteStream(int endPoint) {
+//        VideoRendererGui.update(localRender,
+//                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
+//                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
+//                scalingType);
+//    }
 }

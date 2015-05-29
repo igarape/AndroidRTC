@@ -38,9 +38,9 @@ public class WebRtcClient {
 
         void onLocalStream(MediaStream localStream);
 
-        void onAddRemoteStream(MediaStream remoteStream, int endPoint);
+//        void onAddRemoteStream(MediaStream remoteStream, int endPoint);
 
-        void onRemoveRemoteStream(int endPoint);
+//        void onRemoveRemoteStream(int endPoint);
     }
 
     private interface Command{
@@ -58,13 +58,13 @@ public class WebRtcClient {
     private class CreateAnswerCommand implements Command{
         public void execute(String peerId, JSONObject payload) throws JSONException {
             Log.d(TAG,"CreateAnswerCommand");
-            Peer peer = peers.get(peerId);
-            SessionDescription sdp = new SessionDescription(
-                    SessionDescription.Type.fromCanonicalForm(payload.getString("type")),
-                    payload.getString("sdp")
-            );
-            peer.pc.setRemoteDescription(peer, sdp);
-            peer.pc.createAnswer(peer, pcConstraints);
+//            Peer peer = peers.get(peerId);
+//            SessionDescription sdp = new SessionDescription(
+//                    SessionDescription.Type.fromCanonicalForm(payload.getString("type")),
+//                    payload.getString("sdp")
+//            );
+//            peer.pc.setRemoteDescription(peer, sdp);
+//            peer.pc.createAnswer(peer, pcConstraints);
         }
     }
 
@@ -150,7 +150,7 @@ public class WebRtcClient {
                 }
             }
         };
-
+//
         private Emitter.Listener onId = new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -193,6 +193,7 @@ public class WebRtcClient {
 
         @Override
         public void onIceConnectionChange(PeerConnection.IceConnectionState iceConnectionState) {
+            Log.d(TAG, "onIceConnectionChange"+iceConnectionState);
             if(iceConnectionState == PeerConnection.IceConnectionState.DISCONNECTED) {
                 mListener.onStatusChanged("DISCONNECTED");
                 removePeer(id);
@@ -217,14 +218,14 @@ public class WebRtcClient {
 
         @Override
         public void onAddStream(MediaStream mediaStream) {
-            Log.d(TAG,"onAddStream "+mediaStream.label());
-            // remote streams are displayed from 1 to MAX_PEER (0 is localStream)
-            mListener.onAddRemoteStream(mediaStream, endPoint+1);
+//            Log.d(TAG,"onAddStream "+mediaStream.label());
+//            // remote streams are displayed from 1 to MAX_PEER (0 is localStream)
+//            mListener.onAddRemoteStream(mediaStream, endPoint+1);
         }
 
         @Override
         public void onRemoveStream(MediaStream mediaStream) {
-            Log.d(TAG,"onRemoveStream "+mediaStream.label());
+//            Log.d(TAG,"onRemoveStream "+mediaStream.label());
             removePeer(id);
         }
 
@@ -258,7 +259,7 @@ public class WebRtcClient {
 
     private void removePeer(String id) {
         Peer peer = peers.get(id);
-        mListener.onRemoveRemoteStream(peer.endPoint);
+        //mListener.onRemoveRemoteStream(peer.endPoint);
         peer.pc.close();
         peers.remove(peer.id);
         endPoints[peer.endPoint] = false;
